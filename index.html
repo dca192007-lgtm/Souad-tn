@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة سُعاد للبيانات المفتوحة | Souad.tn</title>
-    <!-- Tailwind CSS عبر CDN سريع وموثوق -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- خط تجوال العربي الاحترافي -->
+    <!-- Google Font: Tajawal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
     <div>
-        <!-- الشريط العلوي التوجيهي (Header) -->
+        <!-- الشريط العلوي والتوقيت الحي -->
         <header class="bg-emerald-900 text-white border-b border-emerald-800 sticky top-0 z-50 shadow-md">
             <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3">
                 <div class="flex items-center space-x-3 space-x-reverse">
@@ -29,240 +29,47 @@
                         <p class="text-xs text-emerald-200 mt-0.5">دليل مستقل لتيسير وصول المواطن التونسي للخدمات والمعلومات المفتوحة</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-950 text-emerald-300 border border-emerald-700">
-                        <span class="w-2 h-2 ml-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        بيانات معتمدة من المصادر الرسمية
-                    </span>
+
+                <!-- خيار الولاية والتوقيت الحلي -->
+                <div class="flex items-center gap-3">
+                    <div class="text-left text-xs text-emerald-200 hidden md:block">
+                        <div id="liveClock" class="font-bold text-white text-sm">--:--:--</div>
+                        <div id="liveDate" class="text-[11px] opacity-80">جاري تحميل التاريخ...</div>
+                    </div>
+                    <div class="flex items-center gap-1.5 bg-emerald-950 p-1.5 rounded-lg border border-emerald-700">
+                        <label for="govSelect" class="text-xs text-emerald-300 font-medium whitespace-nowrap">الولاية:</label>
+                        <select id="govSelect" onchange="updateGovernorateData()" class="bg-emerald-900 text-emerald-100 text-xs rounded border border-emerald-600 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-400">
+                            <option value="Tunis" data-lat="36.8065" data-lon="10.1815">تونس</option>
+                            <option value="Ariana" data-lat="36.8665" data-lon="10.1930">أريانة</option>
+                            <option value="Ben Arous" data-lat="36.7531" data-lon="10.2222">بن عروس</option>
+                            <option value="Manouba" data-lat="36.8078" data-lon="10.0863">منوبة</option>
+                            <option value="Nabeul" data-lat="36.4561" data-lon="10.7376">نابل</option>
+                            <option value="Bizerte" data-lat="37.2744" data-lon="9.8739">بنزرت</option>
+                            <option value="Zaghouan" data-lat="36.4029" data-lon="10.1429">زغوان</option>
+                            <option value="Baja" data-lat="36.7256" data-lon="9.1817">باجة</option>
+                            <option value="Jendouba" data-lat="36.5011" data-lon="8.7802">جندوبة</option>
+                            <option value="Kef" data-lat="36.1826" data-lon="8.7148">الكاف</option>
+                            <option value="Siliana" data-lat="36.0849" data-lon="9.3708">سليانة</option>
+                            <option value="Sousse" data-lat="35.8256" data-lon="10.6411" selected>سوسة</option>
+                            <option value="Monastir" data-lat="35.7833" data-lon="10.8333">المنستير</option>
+                            <option value="Mahdia" data-lat="35.5047" data-lon="11.0622">المهدية</option>
+                            <option value="Sfax" data-lat="34.7406" data-lon="10.7603">صفاقس</option>
+                            <option value="Kairouan" data-lat="35.6781" data-lon="10.0963">القيروان</option>
+                            <option value="Kasserine" data-lat="35.1676" data-lon="8.8365">القصرين</option>
+                            <option value="Sidi Bouzid" data-lat="35.0382" data-lon="9.4849">سيدي بوزيد</option>
+                            <option value="Gabes" data-lat="33.8815" data-lon="10.0982">قابس</option>
+                            <option value="Medenine" data-lat="33.3549" data-lon="10.5055">مدنين</option>
+                            <option value="Tataouine" data-lat="32.9297" data-lon="10.4518">تطاوين</option>
+                            <option value="Gafsa" data-lat="34.4250" data-lon="8.7842">قفصة</option>
+                            <option value="Tozeur" data-lat="33.9197" data-lon="8.1336">توزر</option>
+                            <option value="Kebili" data-lat="33.7044" data-lon="8.9690">قبلي</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- بيان الشفافية ودستور سُعاد (إخلاء مسؤولية صريح) -->
-        <div class="bg-amber-500/10 border-b border-amber-500/20 text-amber-950 text-xs px-4 py-3">
-            <div class="max-w-6xl mx-auto flex items-start gap-2">
-                <span class="text-base leading-none">⚖️</span>
-                <p class="leading-relaxed">
-                    <strong>تنبيه قانوني وشفافية:</strong> منصة "سُعاد" هي مبادرة مدنية مجتمعية مستقلة وغير حكومية. تقوم المنصة بتجميع وتيسير قراءة البيانات المنشورة للعموم من قبل الهياكل والمؤسسات الرسمية التونسية دون تغيير أو اجتهاد.
-                </p>
-            </div>
-        </div>
-
-        <!-- المحتوى الرئيسي والأركان الـ 8 -->
-        <main class="max-w-6xl mx-auto px-4 py-8">
-            <div class="flex items-center justify-between mb-6 pb-2 border-b border-slate-200">
-                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
-                    الأركان والخدمات الحية (الـ 24 ولاية)
-                </h2>
-                <span class="text-xs text-slate-500">تحديث آلي مستمر</span>
-            </div>
-
-            <!-- شبكة الأركان الـ 8 بتصميم تجاوبي عالي الدقة -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                
-                <!-- 1. صيدليات الأنوبة -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            🏥
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">صيدليات الأنوبة</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">جداول الصيدليات العاملة نهاراً وليلاً حسب ولايتك.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>نقابة الصيدليات الخواص</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 2. أسعار السوق -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            🛒
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">أسعار المواد الأساسية</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">المشريات والأسعار المرجعية من أسواق الجملة.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>وزارة التجارة والتنمية</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 3. مواعيد النقل العمومي -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            🚆
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">مواعيد النقل العمومي</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">رحلات القطارات، الحافلات، والخطوط البعيدة.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>الشركات الوطنية والجهوية</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 4. العملات والذهب -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            🪙
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">أسعار الصرف والعملات</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">سعر الدينار التونسي مقابل العملات الأجنبية الرئيسية.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>البنك المركزي التونسي</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 5. مواقيت الصلاة -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            🕌
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">مواقيت الصلاة</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">مواقيت الصلاة اليومية بدقة حسب كل ولاية ومعتمدية.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>وزارة الشؤون الدينية</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 6. الطقس والأحوال الجوية -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            🌤️
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">الطقس والأحوال الجوية</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">النشرات الجوية والملاحة البحرية لجميع الولايات.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>المعهد الوطني للرصد الجوي</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 7. دليل الطوارئ -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            📞
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">دليل أرقام الطوارئ</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">أرقام النجدة، الحماية المدنية، والمرافق العمومية.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>دليل الخدمة العمومية</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-                <!-- 8. المناظرات والعطل -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                            📚
-                        </div>
-                        <h3 class="font-bold text-slate-900 text-base">المناظرات والعطل الرسمية</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">روزنامة الامتحانات المدرسية والعطل المعتمدة.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
-                        <span>الرائد الرسمي والتكوين</span>
-                        <span>←</span>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-    </div>
-
-    <!-- التذييل (Footer) والشروط الأخلاقية -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 text-center space-y-3">
-            <p class="font-bold text-slate-200 text-sm">بوابة سُعاد للبيانات المفتوحة © 2026</p>
-            <p class="max-w-2xl mx-auto text-slate-400 leading-relaxed">
-                مشروع رقمي غير ربحي أُنشئ كصدقة جارية وتيسيراً لخدمة المواطن التونسي. يعتمد الموقع كلياً على جمع المعطيات المفتوحة المتاحة مجاناً من المؤسسات والهياكل العمومية المعتمدة.
-            </p>
-            <div class="pt-2 text-slate-500 text-[11px]">
-                الموقع لا يتطلب أي بيانات شخصية ولا يحفظ ملفات تعريف تتبع.
-            </div>
-        </div>
-    </footer>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة سُعاد للبيانات المفتوحة | Souad.tn</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', system-ui, -apple-system, sans-serif; }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
-
-    <div>
-        <!-- الهيدر -->
-        <header class="bg-emerald-900 text-white border-b border-emerald-800 sticky top-0 z-50 shadow-md">
-            <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3">
-                <div class="flex items-center space-x-3 space-x-reverse">
-                    <div class="w-10 h-10 rounded-full bg-emerald-700 flex items-center justify-center font-bold text-xl text-emerald-100 border border-emerald-500 shadow-inner">
-                        س
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-extrabold tracking-tight text-white">بوابة سُعاد للبيانات المفتوحة</h1>
-                        <p class="text-xs text-emerald-200 mt-0.5">دليل مستقل لتيسير وصول المواطن التونسي للخدمات والمعلومات المفتوحة</p>
-                    </div>
-                </div>
-                <!-- اختيار الولاية -->
-                <div class="flex items-center gap-2">
-                    <label for="govSelect" class="text-xs text-emerald-200 font-medium">اختر ولايتك:</label>
-                    <select id="govSelect" onchange="updateGovernorateData()" class="bg-emerald-950 text-emerald-100 text-xs rounded-lg px-3 py-1.5 border border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                        <option value="Tunis">تونس</option>
-                        <option value="Ariana">أريانة</option>
-                        <option value="Ben Arous">بن عروس</option>
-                        <option value="Manouba">منوبة</option>
-                        <option value="Nabeul">نابل</option>
-                        <option value="Bizerte">بنزرت</option>
-                        <option value="Zaghouan">زغوان</option>
-                        <option value="Baja">باجة</option>
-                        <option value="Jendouba">جندوبة</option>
-                        <option value="Kef">الكاف</option>
-                        <option value="Siliana">سليانة</option>
-                        <option value="Sousse" selected>سوسة</option>
-                        <option value="Monastir">المنستير</option>
-                        <option value="Mahdia">المهدية</option>
-                        <option value="Sfax">صفاقس</option>
-                        <option value="Kairouan">القيروان</option>
-                        <option value="Kasserine">القصرين</option>
-                        <option value="Sidi Bouzid">سيدي بوزيد</option>
-                        <option value="Gabes">قابس</option>
-                        <option value="Medenine">مدنين</option>
-                        <option value="Tataouine">تطاوين</option>
-                        <option value="Gafsa">قفصة</option>
-                        <option value="Tozeur">توزر</option>
-                        <option value="Kebili">قبلي</option>
-                    </select>
-                </div>
-            </div>
-        </header>
-
-        <!-- بيان الشفافية -->
+        <!-- بيان الشفافية ودستور سُعاد -->
         <div class="bg-amber-500/10 border-b border-amber-500/20 text-amber-950 text-xs px-4 py-2.5">
             <div class="max-w-6xl mx-auto flex items-start gap-2">
                 <span class="text-base leading-none">⚖️</span>
@@ -272,83 +79,204 @@
             </div>
         </div>
 
+        <!-- المحتوى الرئيسي -->
         <main class="max-w-6xl mx-auto px-4 py-6">
             
-            <!-- قسم البيانات الحية المباشرة (مواقيت الصلاة والطقس) -->
+            <!-- قسم المعطيات الحية والمباشرة (مواقيت الصلاة والطقس) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 
-                <!-- كارت مواقيت الصلاة الحية -->
-                <div class="md:col-span-2 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                            <span>🕌</span> مواقيت الصلاة اليومية - <span id="currentGovName" class="text-emerald-700">سوسة</span>
-                        </h3>
-                        <span id="prayerDate" class="text-xs text-slate-500">جاري التحميل...</span>
+                <!-- كارت مواقيت الصلاة -->
+                <div class="md:col-span-2 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <span>🕌</span> مواقيت الصلاة - <span id="currentGovName" class="text-emerald-700">سوسة</span>
+                            </h2>
+                            <span id="hijriDate" class="text-xs text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 font-medium">جاري التحميل...</span>
+                        </div>
+
+                        <!-- جدول المواعيد -->
+                        <div class="grid grid-cols-5 gap-2 text-center" id="prayerTimesContainer">
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100"><div class="text-xs text-slate-500 font-medium">الفجر</div><div id="fajr" class="font-extrabold text-slate-800 text-base mt-1">--:--</div></div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100"><div class="text-xs text-slate-500 font-medium">الظهر</div><div id="dhuhr" class="font-extrabold text-slate-800 text-base mt-1">--:--</div></div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100"><div class="text-xs text-slate-500 font-medium">العصر</div><div id="asr" class="font-extrabold text-slate-800 text-base mt-1">--:--</div></div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100"><div class="text-xs text-slate-500 font-medium">المغرب</div><div id="maghrib" class="font-extrabold text-slate-800 text-base mt-1">--:--</div></div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100"><div class="text-xs text-slate-500 font-medium">العشاء</div><div id="isha" class="font-extrabold text-slate-800 text-base mt-1">--:--</div></div>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-5 gap-2 text-center" id="prayerTimesContainer">
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500">الفجر</div><div id="fajr" class="font-bold text-slate-800 text-sm mt-1">--:--</div></div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500">الظهر</div><div id="dhuhr" class="font-bold text-slate-800 text-sm mt-1">--:--</div></div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500">العصر</div><div id="asr" class="font-bold text-slate-800 text-sm mt-1">--:--</div></div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500">المغرب</div><div id="maghrib" class="font-bold text-slate-800 text-sm mt-1">--:--</div></div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500">العشاء</div><div id="isha" class="font-bold text-slate-800 text-sm mt-1">--:--</div></div>
+
+                    <div class="text-[11px] text-slate-400 mt-4 pt-2 border-t border-slate-100 flex justify-between items-center">
+                        <span>المصدر: وزارة الشؤون الدينية التونسية (حساب فلكي)</span>
+                        <span class="text-emerald-600 font-medium">● تحدث تلقائياً</span>
                     </div>
                 </div>
 
-                <!-- كارت الطقس الحي -->
+                <!-- كارت حالة الطقس الحالية -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                            <span>🌤️</span> الطقس الان
-                        </h3>
-                        <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">مباشر</span>
-                    </div>
-                    <div class="my-3 flex items-center justify-between">
-                        <div>
-                            <div id="weatherTemp" class="text-3xl font-extrabold text-slate-800">--°C</div>
-                            <div id="weatherDesc" class="text-xs text-slate-500 mt-1">جاري جلب حالة الطقس...</div>
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <span>🌤️</span> حالة الطقس المباشرة
+                            </h2>
+                            <span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200 font-bold">مباشر</span>
                         </div>
-                        <div id="weatherIcon" class="text-4xl">🌤️</div>
+                        <div class="my-4 flex items-center justify-between">
+                            <div>
+                                <div id="weatherTemp" class="text-4xl font-extrabold text-slate-800">--°C</div>
+                                <div id="weatherWind" class="text-xs text-slate-500 mt-1">الرياح: -- كم/س</div>
+                            </div>
+                            <div id="weatherIcon" class="text-4xl bg-slate-50 p-3 rounded-2xl border border-slate-100">🌤️</div>
+                        </div>
                     </div>
                     <div class="text-[11px] text-slate-400 border-t border-slate-100 pt-2">
-                        المصدر: معطيات الرصد الجوي المفتوحة
+                        المصدر: المعطيات المفتوحة للرصد الجوي
                     </div>
                 </div>
 
             </div>
 
-            <!-- شبكة الأركان العامة -->
-            <h2 class="text-md font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                بقية الخدمات والمعلومات العامة
-            </h2>
+            <!-- شبكة الأركان والخدمات العامة الـ 8 -->
+            <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
+                <h2 class="text-md font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                    أركان الخدمات والبيانات المفتوحة
+                </h2>
+                <span class="text-xs text-slate-500">24 ولاية</span>
+            </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><h3 class="font-bold text-sm">🏥 صيدليات الأنوبة</h3><p class="text-xs text-slate-500 mt-1">جداول الصيدليات العاملة</p></div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><h3 class="font-bold text-sm">🛒 أسعار المواد الأساسية</h3><p class="text-xs text-slate-500 mt-1">أسواق الجملة والتفصيل</p></div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><h3 class="font-bold text-sm">🚆 مواعيد النقل العمومي</h3><p class="text-xs text-slate-500 mt-1">القطارات والحافلات</p></div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><h3 class="font-bold text-sm">🪙 العملات والذهب</h3><p class="text-xs text-slate-500 mt-1">البنك المركزي التونسي</p></div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><h3 class="font-bold text-sm">📞 أرقام الطوارئ</h3><p class="text-xs text-slate-500 mt-1">النجدة والحماية المدنية</p></div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><h3 class="font-bold text-sm">📚 العطل والمناظرات</h3><p class="text-xs text-slate-500 mt-1">الروزنامة المعتمدة</p></div>
+                
+                <!-- 1. صيدليات الأنوبة -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            🏥
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">صيدليات الأنوبة</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">جداول صيدليات النهار والليل المحدثة.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                        <span>نقابة الصيدليات</span>
+                        <span>←</span>
+                    </div>
+                </div>
+
+                <!-- 2. أسعار المواد الأساسية -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            🛒
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">أسعار أسواق الجملة</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">الأسعار المرجعية للخضر والفواكه واللحوم.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                        <span>وزارة التجارة</span>
+                        <span>←</span>
+                    </div>
+                </div>
+
+                <!-- 3. مواعيد النقل العمومي -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            🚆
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">النقل العمومي</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">رحلات القطارات (SNCFT) والحافلات الجهوية.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                        <span>الشركات الوطنية</span>
+                        <span>←</span>
+                    </div>
+                </div>
+
+                <!-- 4. العملات والذهب -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            🪙
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">أسعار الصرف والعملات</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">سعر الدينار التونسي مقابل العملات الأجنبية.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                        <span>البنك المركزي</span>
+                        <span>←</span>
+                    </div>
+                </div>
+
+                <!-- 5. دليل الطوارئ -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            📞
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">أرقام الطوارئ والنجدة</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">الشرطة (197)، الحماية (198)، الإسعاف (190).</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                        <span>خدمة سريعة</span>
+                        <span>←</span>
+                    </div>
+                </div>
+
+                <!-- 6. العطل والمناظرات -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
+                            📚
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-sm">الروزنامة والعطل</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">جدول الامتحانات المدرسية والعطل الرسمية.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold">
+                        <span>الرائد الرسمي</span>
+                        <span>←</span>
+                    </div>
+                </div>
+
             </div>
 
         </main>
     </div>
 
-    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 text-center">
-        <p class="font-bold text-slate-200">بوابة سُعاد للبيانات المفتوحة © 2026</p>
-        <p class="text-slate-500 mt-1">عمل خيري معرفي مستقل لتيسير يوم المواطن التونسي</p>
+    <!-- التذييل (Footer) -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
+            <p class="font-bold text-slate-200 text-sm">بوابة سُعاد للبيانات المفتوحة © 2026</p>
+            <p class="max-w-xl mx-auto text-slate-400 leading-relaxed text-[11px]">
+                مشروع مدني مستقل مبني بروح العطاء والتطوع لتسهيل الوصول للمعطيات المتاحة عمومياً دون أهداف تجارية.
+            </p>
+        </div>
     </footer>
 
-    <!-- سكريبت الربط الحي الذكي -->
+    <!-- سكريبت التوقيت الحي والبيانات المباشرة -->
     <script>
+        // 1. إدارة التوقيت المحلي بدقة
+        function updateClock() {
+            const now = new Date();
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Africa/Tunis' };
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Africa/Tunis' };
+            
+            document.getElementById('liveClock').innerText = now.toLocaleTimeString('ar-TN', timeOptions);
+            document.getElementById('liveDate').innerText = now.toLocaleDateString('ar-TN', dateOptions);
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 2. جلب مواقيت الصلاة والطقس حسب الولاية المختارة
         async function updateGovernorateData() {
             const select = document.getElementById('govSelect');
+            const selectedOption = select.options[select.selectedIndex];
             const city = select.value;
-            const cityNameAr = select.options[select.selectedIndex].text;
+            const cityNameAr = selectedOption.text;
+            const lat = selectedOption.getAttribute('data-lat');
+            const lon = selectedOption.getAttribute('data-lon');
             
             document.getElementById('currentGovName').innerText = cityNameAr;
 
-            // 1. جلب مواقيت الصلاة الحية عبر API موثوق
+            // جلب مواقيت الصلاة
             try {
                 const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Tunisia&method=3`);
                 const data = await response.json();
@@ -359,27 +287,13 @@
                     document.getElementById('asr').innerText = t.Asr;
                     document.getElementById('maghrib').innerText = t.Maghrib;
                     document.getElementById('isha').innerText = t.Isha;
-                    document.getElementById('prayerDate').innerText = data.data.date.readable;
+                    
+                    const h = data.data.date.hijri;
+                    document.getElementById('hijriDate').innerText = `${h.day} ${h.month.ar} ${h.year} هـ`;
                 }
             } catch(e) {
-                console.log("خطأ في جلب المواقيت");
+                console.error("خطأ في جلب المواقيت", e);
             }
 
-            // 2. جلب حالة الطقس الحية عبر API مفتوح
+            // جلب حالة الطقس
             try {
-                const wResp = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=35.8256&longitude=10.6411&current_weather=true`);
-                const wData = await wResp.json();
-                if(wData.current_weather) {
-                    document.getElementById('weatherTemp').innerText = `${Math.round(wData.current_weather.temperature)}°C`;
-                    document.getElementById('weatherDesc').innerText = `سرعة الرياح: ${wData.current_weather.windspeed} كم/س`;
-                }
-            } catch(e) {
-                console.log("خطأ في جلب الطقس");
-            }
-        }
-
-        // تشغيل التحديث فور تحميل الصفحة
-        window.onload = updateGovernorateData;
-    </script>
-</body>
-</html>
