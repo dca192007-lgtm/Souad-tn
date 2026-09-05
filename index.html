@@ -1,230 +1,2161 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة سُعاد للبيانات المفتوحة | Souad.tn</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>سُعاد | بوابة المعلومات والخدمات المفتوحة في تونس</title>
+
+    <meta
+        name="description"
+        content="سُعاد: بوابة مستقلة تساعدك على الوصول إلى المعلومات والخدمات والبيانات العمومية في تونس من مصادرها الأصلية."
+    >
+
+    <meta name="theme-color" content="#064e3b">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="سُعاد | بوابة المعلومات والخدمات المفتوحة في تونس">
+    <meta property="og:description" content="المعلومة التي تحتاجها، من مصدرها.">
+    <meta property="og:type" content="website">
+
+    <link rel="canonical" href="https://souad.tn/">
+
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', system-ui, -apple-system, sans-serif; }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-100 selection:text-emerald-900">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet"
+    >
 
-    <div>
-        <!-- الشريط العلوي والتوقيت الحي -->
-        <header class="bg-emerald-900 text-white border-b border-emerald-800 sticky top-0 z-50 shadow-md">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
-                <div class="flex items-center space-x-3 space-x-reverse">
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-700 flex items-center justify-center font-black text-xl text-emerald-100 border border-emerald-500/50 shadow-inner">
-                        س
-                    </div>
-                    <div>
-                        <h1 class="text-lg sm:text-xl font-black tracking-tight text-white flex items-center gap-2">
-                            بوابة سُعاد للبيانات المفتوحة
-                        </h1>
-                        <p class="text-[11px] sm:text-xs text-emerald-200 mt-0.5 font-normal">دليل مجتمعي مستقل لتيسير وصول المواطن للخدمات والمعلومات المفتوحة</p>
-                    </div>
-                </div>
-
-                <!-- خيار الولاية والتوقيت الحي -->
-                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-0 border-emerald-800/60 pt-2 sm:pt-0">
-                    <div class="text-right sm:text-left text-xs text-emerald-200">
-                        <div id="liveClock" class="font-bold text-white text-sm tracking-wider font-mono">00:00:00</div>
-                        <div id="liveDate" class="text-[10px] opacity-80">-- ---- ----</div>
-                    </div>
-                    <div class="flex items-center gap-1.5 bg-emerald-950 px-2.5 py-1.5 rounded-xl border border-emerald-700/80 shadow-inner">
-                        <label for="govSelect" class="text-xs text-emerald-300 font-semibold whitespace-nowrap">الولاية:</label>
-                        <select id="govSelect" onchange="updateGovernorateData()" class="bg-emerald-900 text-emerald-100 text-xs rounded-lg border border-emerald-600/80 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-medium">
-                            <option value="Tunis">تونس</option>
-                            <option value="Ariana">أريانة</option>
-                            <option value="Ben Arous">بن عروس</option>
-                            <option value="Manouba">منوبة</option>
-                            <option value="Nabeul">نابل</option>
-                            <option value="Bizerte">بنزرت</option>
-                            <option value="Zaghouan">زغوان</option>
-                            <option value="Beja">باجة</option>
-                            <option value="Jendouba">جندوبة</option>
-                            <option value="Kef">الكاف</option>
-                            <option value="Siliana">سليانة</option>
-                            <option value="Sousse" selected>سوسة</option>
-                            <option value="Monastir">المنستير</option>
-                            <option value="Mahdia">المهدية</option>
-                            <option value="Sfax">صفاقس</option>
-                            <option value="Kairouan">القيروان</option>
-                            <option value="Kasserine">القصرين</option>
-                            <option value="Sidi Bouzid">سيدي بوزيد</option>
-                            <option value="Gabes">قابس</option>
-                            <option value="Medenine">مدنين</option>
-                            <option value="Tataouine">تطاوين</option>
-                            <option value="Gafsa">قفصة</option>
-                            <option value="Tozeur">توزر</option>
-                            <option value="Kebili">قبلي</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- بيان الشفافية -->
-        <div class="bg-amber-50 border-b border-amber-200/80 text-amber-950 text-xs px-4 py-2.5">
-            <div class="max-w-6xl mx-auto flex items-start gap-2">
-                <span class="text-base leading-none">⚖️</span>
-                <p class="leading-relaxed">
-                    <strong>تنبيه قانوني وشفافية:</strong> منصة "سُعاد" مبادرة مدنية مجتمعية مستقلة وغير حكومية. تعتمد المنصة حصراً على نقل وتجميع المعطيات المنشورة للعموم من الهياكل والمؤسسات الرسمية التونسية دون تغيير أو اجتهاد.
-                </p>
-            </div>
-        </div>
-
-        <main class="max-w-6xl mx-auto px-4 py-6">
-            
-            <!-- المعطيات المباشرة -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                
-                <!-- كارت الصلاة -->
-                <div class="md:col-span-2 bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-                            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <span>🕌</span> مواقيت الصلاة - <span id="currentGovName" class="text-emerald-700">سوسة</span>
-                            </h2>
-                            <span class="text-[11px] text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 font-semibold">روزنامة الإفتاء الرسمية</span>
-                        </div>
-
-                        <div class="grid grid-cols-5 gap-1.5 sm:gap-2 text-center" id="prayerTimesContainer">
-                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500 font-medium">الفجر</div><div id="fajr" class="font-black text-slate-800 text-xs sm:text-sm mt-1">--:--</div></div>
-                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500 font-medium">الظهر</div><div id="dhuhr" class="font-black text-slate-800 text-xs sm:text-sm mt-1">--:--</div></div>
-                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500 font-medium">العصر</div><div id="asr" class="font-black text-slate-800 text-xs sm:text-sm mt-1">--:--</div></div>
-                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500 font-medium">المغرب</div><div id="maghrib" class="font-black text-slate-800 text-xs sm:text-sm mt-1">--:--</div></div>
-                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100"><div class="text-[11px] text-slate-500 font-medium">العشاء</div><div id="isha" class="font-black text-slate-800 text-xs sm:text-sm mt-1">--:--</div></div>
-                        </div>
-                    </div>
-
-                    <div class="text-[11px] text-slate-400 mt-4 pt-2 border-t border-slate-100 flex justify-between items-center">
-                        <span>المصدر: وزارة الشؤون الدينية التونسية</span>
-                        <span class="text-emerald-600 font-medium flex items-center gap-1">● بيانات معتمدة</span>
-                    </div>
-                </div>
-
-                <!-- كارت الطقس -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <span>🌤️</span> حالة الطقس
-                            </h2>
-                            <a href="https://www.meteo.tn" target="_blank" rel="noopener noreferrer" class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200 font-bold hover:bg-emerald-100">المعهد الوطني للرصد ↗</a>
-                        </div>
-                        <div class="my-3 flex items-center justify-between">
-                            <div>
-                                <div id="weatherTemp" class="text-3xl sm:text-4xl font-black text-slate-800">--°C</div>
-                                <div id="weatherWind" class="text-xs text-slate-500 mt-1">تحديث حي من المحطة</div>
-                            </div>
-                            <div id="weatherIcon" class="text-4xl bg-slate-50 p-3 rounded-2xl border border-slate-100">🌤️</div>
-                        </div>
-                    </div>
-                    <div class="text-[11px] text-slate-400 border-t border-slate-100 pt-2">
-                        المصدر: المعهد الوطني للرصد الجوي (INM)
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- شبكة الأركان -->
-            <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
-                <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                    دليل الأركان والخدمات المتاحة (24 ولاية)
-                </h2>
-                <span class="text-xs text-slate-500">2026</span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
-                    <div><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">🏥</div><h3 class="font-bold text-slate-900 text-sm">صيدليات الأنوبة</h3><p class="text-xs text-slate-500 mt-1 leading-relaxed">جداول الصيدليات العاملة نهاراً وليلاً.</p></div>
-                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold"><span>نقابة الصيدليات</span><span>←</span></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
-                    <div><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">🛒</div><h3 class="font-bold text-slate-900 text-sm">أسعار أسواق الجملة</h3><p class="text-xs text-slate-500 mt-1 leading-relaxed">الأسعار المرجعية اليومية للمواد الأساسية.</p></div>
-                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold"><span>وزارة التجارة</span><span>←</span></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
-                    <div><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">🚆</div><h3 class="font-bold text-slate-900 text-sm">مواعيد النقل العمومي</h3><p class="text-xs text-slate-500 mt-1 leading-relaxed">القطارات (SNCFT) والحافلات الجهوية.</p></div>
-                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold"><span>الشركات الوطنية</span><span>←</span></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
-                    <div><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">🪙</div><h3 class="font-bold text-slate-900 text-sm">أسعار الصرف والعملات</h3><p class="text-xs text-slate-500 mt-1 leading-relaxed">نشرات سعر الدينار مقابل العملات الأجنبية.</p></div>
-                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold"><span>البنك المركزي</span><span>←</span></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
-                    <div><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">📞</div><h3 class="font-bold text-slate-900 text-sm">أرقام الطوارئ والنجدة</h3><p class="text-xs text-slate-500 mt-1 leading-relaxed">الشرطة (197)، الحماية (198)، الإسعاف (190).</p></div>
-                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold"><span>خدمة سريعة</span><span>←</span></div>
-                </div>
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-500 transition duration-200 flex flex-col justify-between group cursor-pointer">
-                    <div><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">📚</div><h3 class="font-bold text-slate-900 text-sm">العطل والمناظرات</h3><p class="text-xs text-slate-500 mt-1 leading-relaxed">جدول الامتحانات المدرسية والعطل الرسمية.</p></div>
-                    <div class="mt-4 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-emerald-700 font-semibold"><span>الرائد الرسمي</span><span>←</span></div>
-                </div>
-            </div>
-
-        </main>
-    </div>
-
-    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 text-center space-y-2">
-            <p class="font-bold text-slate-200 text-sm">بوابة سُعاد للبيانات المفتوحة © 2026</p>
-            <p class="max-w-xl mx-auto text-slate-400 leading-relaxed text-[11px]">
-                مشروع رقمي غير ربحي مستقل لتسهيل النفاذ اليومي للمعلومات العمومية المتاحة في تونس.
-            </p>
-        </div>
-    </footer>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Africa/Tunis' };
-            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Africa/Tunis' };
-            document.getElementById('liveClock').innerText = now.toLocaleTimeString('ar-TN', timeOptions);
-            document.getElementById('liveDate').innerText = now.toLocaleDateString('ar-TN', dateOptions);
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // بيانات حية رسمية محددة لمنع أي تباين مع الـ APIs المجانية العامة
-        async function updateGovernorateData() {
-            const select = document.getElementById('govSelect');
-            const cityNameAr = select.options[select.selectedIndex].text;
-            const city = select.value;
-            document.getElementById('currentGovName').innerText = cityNameAr;
-
-            try {
-                // جلب مباشر لمعيار ديوان الإفتاء المعتمد
-                const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Tunisia&method=3`);
-                const data = await response.json();
-                if(data.code === 200) {
-                    const t = data.data.timings;
-                    document.getElementById('fajr').innerText = t.Fajr;
-                    document.getElementById('dhuhr').innerText = t.Dhuhr;
-                    document.getElementById('asr').innerText = t.Asr;
-                    document.getElementById('maghrib').innerText = t.Maghrib;
-                    document.getElementById('isha').innerText = t.Isha;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'system-ui', 'sans-serif']
+                    },
+                    boxShadow: {
+                        soft: '0 10px 35px rgba(15, 23, 42, .07)',
+                        card: '0 4px 20px rgba(15, 23, 42, .06)'
+                    }
                 }
-            } catch(e) {}
-
-            try {
-                // جلب درجة الحرارة الحية مباشرة من محطات الرصد
-                const wResp = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=35.8256&longitude=10.6411&current=temperature_2m,wind_speed_10m&timezone=Africa%2FTunis`);
-                const wData = await wResp.json();
-                if(wData.current) {
-                    document.getElementById('weatherTemp').innerText = `${Math.round(wData.current.temperature_2m)}°C`;
-                    document.getElementById('weatherWind').innerText = `الرياح: ${Math.round(wData.current.wind_speed_10m)} كم/س`;
-                }
-            } catch(e) {}
+            }
         }
-
-        window.onload = updateGovernorateData;
     </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', system-ui, sans-serif;
+            background: #f8fafc;
+        }
+
+        ::selection {
+            background: #a7f3d0;
+            color: #064e3b;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, .82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(16, 185, 129, .055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, .055) 1px, transparent 1px);
+            background-size: 34px 34px;
+        }
+
+        .fade-up {
+            animation: fadeUp .55s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse-dot {
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .45;
+            }
+        }
+
+        .service-card {
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .ltr {
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+
+        /* Keep external source labels visually stable */
+        [dir="ltr"] .arrow {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="text-slate-800 antialiased">
+
+<!-- =========================================================
+     DATA / CONFIGURATION
+========================================================= -->
+
+<script>
+const SOUAD = {
+
+    version: "1.0.0",
+
+    sources: {
+        openData: {
+            name: {
+                ar: "البوابة الوطنية للبيانات المفتوحة",
+                fr: "Portail National des Données Ouvertes",
+                en: "National Open Data Portal"
+            },
+            url: "https://www.data.gov.tn/"
+        },
+
+        interior: {
+            name: {
+                ar: "وزارة الداخلية التونسية",
+                fr: "Ministère de l'Intérieur",
+                en: "Tunisian Ministry of Interior"
+            },
+            url: "https://www.interieur.gov.tn/"
+        },
+
+        interiorServices: {
+            name: {
+                ar: "خدمات وزارة الداخلية",
+                fr: "Services du Ministère de l'Intérieur",
+                en: "Ministry of Interior Services"
+            },
+            url: "https://services.interieur.gov.tn/"
+        },
+
+        sncft: {
+            name: {
+                ar: "الشركة الوطنية للسكك الحديدية التونسية",
+                fr: "SNCFT",
+                en: "Tunisian National Railway"
+            },
+            url: "https://www.sncft.com.tn/"
+        },
+
+        sncftLive: {
+            name: {
+                ar: "متابعة القطارات مباشرة",
+                fr: "Suivi des trains en temps réel",
+                en: "Live train tracking"
+            },
+            url: "https://www.sncft.com.tn/ar/القطار-في-الوقت-الحقيقي/"
+        },
+
+        meteo: {
+            name: {
+                ar: "المعهد الوطني للرصد الجوي",
+                fr: "Institut National de la Météorologie",
+                en: "National Institute of Meteorology"
+            },
+            url: "https://www.meteo.tn/"
+        }
+    },
+
+    emergency: [
+        {
+            number: "197",
+            ar: "شرطة النجدة / الأمن الوطني",
+            fr: "Police secours",
+            en: "Police emergency"
+        },
+        {
+            number: "193",
+            ar: "الحرس الوطني",
+            fr: "Garde nationale",
+            en: "National Guard"
+        },
+        {
+            number: "198",
+            ar: "الحماية المدنية",
+            fr: "Protection civile",
+            en: "Civil Protection"
+        }
+    ],
+
+    governorates: [
+        ["Tunis", "تونس", "Tunis", "Tunis"],
+        ["Ariana", "أريانة", "Ariana", "Ariana"],
+        ["Ben Arous", "بن عروس", "Ben Arous", "Ben Arous"],
+        ["Manouba", "منوبة", "Manouba", "Manouba"],
+        ["Nabeul", "نابل", "Nabeul", "Nabeul"],
+        ["Zaghouan", "زغوان", "Zaghouan", "Zaghouan"],
+        ["Bizerte", "بنزرت", "Bizerte", "Bizerte"],
+        ["Béja", "باجة", "Béja", "Beja"],
+        ["Jendouba", "جندوبة", "Jendouba", "Jendouba"],
+        ["Le Kef", "الكاف", "Le Kef", "Kef"],
+        ["Siliana", "سليانة", "Siliana", "Siliana"],
+        ["Kairouan", "القيروان", "Kairouan", "Kairouan"],
+        ["Kasserine", "القصرين", "Kasserine", "Kasserine"],
+        ["Sidi Bouzid", "سيدي بوزيد", "Sidi Bouzid", "Sidi Bouzid"],
+        ["Sousse", "سوسة", "Sousse", "Sousse"],
+        ["Monastir", "المنستير", "Monastir", "Monastir"],
+        ["Mahdia", "المهدية", "Mahdia", "Mahdia"],
+        ["Sfax", "صفاقس", "Sfax", "Sfax"],
+        ["Gabès", "قابس", "Gabès", "Gabes"],
+        ["Medenine", "مدنين", "Medenine", "Medenine"],
+        ["Tataouine", "تطاوين", "Tataouine", "Tataouine"],
+        ["Gafsa", "قفصة", "Gafsa", "Gafsa"],
+        ["Tozeur", "توزر", "Tozeur", "Tozeur"],
+        ["Kebili", "قبلي", "Kébili", "Kebili"]
+    ],
+
+    services: [
+        {
+            id: "emergency",
+            icon: "🚨",
+            title: {
+                ar: "الطوارئ والنجدة",
+                fr: "Urgences",
+                en: "Emergency"
+            },
+            description: {
+                ar: "أهم أرقام النجدة من مصادر وزارة الداخلية.",
+                fr: "Les principaux numéros d'urgence issus des sources officielles.",
+                en: "Key emergency numbers from official sources."
+            },
+            type: "emergency"
+        },
+
+        {
+            id: "transport",
+            icon: "🚆",
+            title: {
+                ar: "النقل بالسكك الحديدية",
+                fr: "Transport ferroviaire",
+                en: "Rail transport"
+            },
+            description: {
+                ar: "الوصول إلى متابعة القطارات والمعلومات الرسمية لشركة SNCFT.",
+                fr: "Accès au suivi des trains et aux informations officielles de la SNCFT.",
+                en: "Access live train tracking and official SNCFT information."
+            },
+            type: "source",
+            source: "sncftLive"
+        },
+
+        {
+            id: "opendata",
+            icon: "📊",
+            title: {
+                ar: "البيانات المفتوحة",
+                fr: "Données ouvertes",
+                en: "Open data"
+            },
+            description: {
+                ar: "البحث في آلاف مجموعات البيانات العمومية التونسية.",
+                fr: "Rechercher parmi les jeux de données publics tunisiens.",
+                en: "Search Tunisia's public open datasets."
+            },
+            type: "source",
+            source: "openData"
+        },
+
+        {
+            id: "weather",
+            icon: "🌦️",
+            title: {
+                ar: "الطقس واليقظة الجوية",
+                fr: "Météo et vigilance",
+                en: "Weather & warnings"
+            },
+            description: {
+                ar: "الرصدات والنشرات والتنبيهات الجوية من المعهد الوطني للرصد الجوي.",
+                fr: "Observations, bulletins et alertes de l'INM.",
+                en: "Observations, bulletins and warnings from Tunisia's INM."
+            },
+            type: "source",
+            source: "meteo"
+        },
+
+        {
+            id: "services",
+            icon: "🪪",
+            title: {
+                ar: "الخدمات الإدارية",
+                fr: "Services administratifs",
+                en: "Administrative services"
+            },
+            description: {
+                ar: "الوصول إلى الخدمات والإجراءات المنشورة من الجهات الرسمية.",
+                fr: "Accès aux services et démarches publiés par les autorités.",
+                en: "Access official administrative services and procedures."
+            },
+            type: "source",
+            source: "interiorServices"
+        },
+
+        {
+            id: "news",
+            icon: "📰",
+            title: {
+                ar: "مصادر الأخبار",
+                fr: "Sources d'information",
+                en: "News sources"
+            },
+            description: {
+                ar: "الوصول إلى مصادر دولية ومستقلة. سُعاد لا تعيد صياغة الخبر دون مصدر.",
+                fr: "Accès à des sources internationales et indépendantes.",
+                en: "Access international and independent sources."
+            },
+            type: "news"
+        },
+
+        {
+            id: "sports",
+            icon: "🏆",
+            title: {
+                ar: "الرياضة",
+                fr: "Sport",
+                en: "Sports"
+            },
+            description: {
+                ar: "مركز للوصول إلى مصادر النتائج والمواعيد الرياضية.",
+                fr: "Un accès organisé aux sources de résultats et calendriers sportifs.",
+                en: "Organized access to sports results and schedules."
+            },
+            type: "sports"
+        },
+
+        {
+            id: "calendar",
+            icon: "📅",
+            title: {
+                ar: "المواعيد الرسمية",
+                fr: "Calendrier officiel",
+                en: "Official calendar"
+            },
+            description: {
+                ar: "الوصول إلى البلاغات والمواعيد الرسمية عند توفر مصدر أولي واضح.",
+                fr: "Accès aux annonces et calendriers officiels lorsqu'une source primaire est disponible.",
+                en: "Official announcements and calendars when a primary source is available."
+            },
+            type: "future"
+        }
+    ]
+};
+
+const TRANSLATIONS = {
+
+    ar: {
+        brand: "سُعاد",
+        tagline: "المعلومة التي تحتاجها، من مصدرها.",
+        subtagline: "بوابة مستقلة لتنظيم الوصول إلى المعلومات والخدمات والبيانات العمومية في تونس.",
+
+        language: "اللغة",
+        governorate: "الولاية",
+        chooseGovernorate: "اختر ولايتك",
+
+        searchPlaceholder: "ماذا تبحث عنه؟ مثال: قطار، طوارئ، بيانات، طقس...",
+        searchButton: "بحث",
+
+        quickAccess: "وصول سريع",
+        servicesTitle: "مركز المعلومات والخدمات",
+        servicesSubtitle: "خدمات نبدأ بها فقط عندما نستطيع توثيق مصدرها بوضوح.",
+
+        emergencyTitle: "أرقام النجدة",
+        emergencySubtitle: "مصادر وزارة الداخلية",
+        call: "اتصال",
+
+        transportTitle: "النقل",
+        transportText: "متابعة القطارات مباشرة من SNCFT.",
+
+        dataTitle: "البيانات المفتوحة",
+        dataText: "الوصول إلى البوابة الوطنية للبيانات المفتوحة.",
+
+        weatherTitle: "الطقس",
+        weatherText: "الرصدات والتنبيهات الرسمية من INM.",
+
+        newsTitle: "الأخبار",
+        newsText: "سُعاد لا تختلق الأخبار. نوصلك إلى المصدر.",
+
+        sportsTitle: "الرياضة",
+        sportsText: "معلومات رياضية من مصادر متخصصة، مع إظهار المصدر.",
+
+        source: "المصدر",
+        official: "مصدر رسمي",
+        verified: "موثق",
+        external: "فتح المصدر الأصلي",
+
+        methodology: "منهجية سُعاد",
+        methodologyText: "لا نعرض معلومة متغيرة دون مصدر. عند غياب التحقق، نصرّح بذلك بدل التخمين.",
+
+        transparency: "الشفافية",
+        transparencyText: "سُعاد مبادرة مستقلة وغير حكومية. لا تمثل الجهات التي تنقل عنها البيانات ولا تستبدل المصدر الأصلي.",
+
+        limitations: "حدود النسخة الحالية",
+        limitationsText: "بعض الخدمات مؤجلة إلى أن يتوفر مصدر مستقر وقابل للتحقق آليًا.",
+
+        adLabel: "مساحة إعلانية",
+
+        footer: "بوابة سُعاد للبيانات المفتوحة",
+        footerText: "مشروع رقمي مستقل يهدف إلى تسهيل الوصول إلى المعلومات العمومية في تونس.",
+
+        noResults: "لم نجد خدمة مطابقة.",
+        tryAgain: "جرّب كلمة أخرى.",
+
+        live: "مباشر",
+        lastChecked: "آخر تحقق",
+        notLive: "ليست بيانات حية",
+
+        future: "قريبًا",
+        unavailable: "غير متاح حاليًا",
+
+        newsSources: [
+            ["Reuters", "https://www.reuters.com/"],
+            ["BBC", "https://www.bbc.com/"],
+            ["Associated Press", "https://apnews.com/"],
+            ["Deutsche Welle", "https://www.dw.com/"],
+            ["France 24", "https://www.france24.com/"]
+        ],
+
+        sportsSources: [
+            ["FIFA", "https://www.fifa.com/"],
+            ["UEFA", "https://www.uefa.com/"],
+            ["Olympics", "https://olympics.com/"],
+            ["World Athletics", "https://worldathletics.org/"]
+        ]
+    },
+
+    fr: {
+        brand: "Souad",
+        tagline: "L'information dont vous avez besoin, depuis sa source.",
+        subtagline: "Une porte d'accès indépendante aux informations, services et données publiques en Tunisie.",
+
+        language: "Langue",
+        governorate: "Gouvernorat",
+        chooseGovernorate: "Choisir un gouvernorat",
+
+        searchPlaceholder: "Que recherchez-vous ? Exemple : train, urgence, données, météo...",
+        searchButton: "Rechercher",
+
+        quickAccess: "Accès rapide",
+        servicesTitle: "Centre d'information et de services",
+        servicesSubtitle: "Des services ajoutés uniquement lorsque leur source peut être clairement vérifiée.",
+
+        emergencyTitle: "Urgences",
+        emergencySubtitle: "Sources du Ministère de l'Intérieur",
+        call: "Appeler",
+
+        transportTitle: "Transport",
+        transportText: "Suivi des trains directement auprès de la SNCFT.",
+
+        dataTitle: "Données ouvertes",
+        dataText: "Accès au portail national des données ouvertes.",
+
+        weatherTitle: "Météo",
+        weatherText: "Observations et alertes officielles de l'INM.",
+
+        newsTitle: "Actualités",
+        newsText: "Souad ne fabrique pas l'information. Elle vous conduit à la source.",
+
+        sportsTitle: "Sport",
+        sportsText: "Informations sportives avec identification de la source.",
+
+        source: "Source",
+        official: "Source officielle",
+        verified: "Vérifié",
+        external: "Ouvrir la source originale",
+
+        methodology: "Méthodologie",
+        methodologyText: "Aucune donnée variable sans source. En cas d'absence de vérification, nous le signalons.",
+
+        transparency: "Transparence",
+        transparencyText: "Souad est une initiative indépendante et non gouvernementale. Elle ne remplace pas les sources originales.",
+
+        limitations: "Limites actuelles",
+        limitationsText: "Certains services sont volontairement différés jusqu'à disponibilité d'une source stable et vérifiable.",
+
+        adLabel: "Espace publicitaire",
+
+        footer: "Portail Souad des données ouvertes",
+        footerText: "Projet numérique indépendant facilitant l'accès aux informations publiques en Tunisie.",
+
+        noResults: "Aucun service correspondant.",
+        tryAgain: "Essayez un autre mot.",
+
+        live: "Direct",
+        lastChecked: "Dernière vérification",
+        notLive: "Pas de données en direct",
+
+        future: "Bientôt",
+        unavailable: "Actuellement indisponible",
+
+        newsSources: [
+            ["Reuters", "https://www.reuters.com/"],
+            ["BBC", "https://www.bbc.com/"],
+            ["Associated Press", "https://apnews.com/"],
+            ["Deutsche Welle", "https://www.dw.com/"],
+            ["France 24", "https://www.france24.com/"]
+        ],
+
+        sportsSources: [
+            ["FIFA", "https://www.fifa.com/"],
+            ["UEFA", "https://www.uefa.com/"],
+            ["Olympics", "https://olympics.com/"],
+            ["World Athletics", "https://worldathletics.org/"]
+        ]
+    },
+
+    en: {
+        brand: "Souad",
+        tagline: "The information you need, from its source.",
+        subtagline: "An independent gateway to public information, services and open data in Tunisia.",
+
+        language: "Language",
+        governorate: "Governorate",
+        chooseGovernorate: "Choose your governorate",
+
+        searchPlaceholder: "What are you looking for? Example: train, emergency, data, weather...",
+        searchButton: "Search",
+
+        quickAccess: "Quick access",
+        servicesTitle: "Information & Services",
+        servicesSubtitle: "We only add services when their source can be clearly verified.",
+
+        emergencyTitle: "Emergency",
+        emergencySubtitle: "Ministry of Interior sources",
+        call: "Call",
+
+        transportTitle: "Transport",
+        transportText: "Live train tracking from SNCFT.",
+
+        dataTitle: "Open data",
+        dataText: "Access Tunisia's National Open Data Portal.",
+
+        weatherTitle: "Weather",
+        weatherText: "Official observations and warnings from INM.",
+
+        newsTitle: "News",
+        newsText: "Souad does not manufacture news. It takes you to the source.",
+
+        sportsTitle: "Sports",
+        sportsText: "Sports information with source identification.",
+
+        source: "Source",
+        official: "Official source",
+        verified: "Verified",
+        external: "Open original source",
+
+        methodology: "Methodology",
+        methodologyText: "No changing data without a source. If verification is unavailable, we say so.",
+
+        transparency: "Transparency",
+        transparencyText: "Souad is an independent, non-governmental initiative. It does not replace original sources.",
+
+        limitations: "Current limitations",
+        limitationsText: "Some services are intentionally delayed until a stable and verifiable source is available.",
+
+        adLabel: "Advertisement",
+
+        footer: "Souad Open Data Portal",
+        footerText: "An independent digital project making public information in Tunisia easier to access.",
+
+        noResults: "No matching service found.",
+        tryAgain: "Try another keyword.",
+
+        live: "Live",
+        lastChecked: "Last checked",
+        notLive: "Not live data",
+
+        future: "Coming soon",
+        unavailable: "Currently unavailable",
+
+        newsSources: [
+            ["Reuters", "https://www.reuters.com/"],
+            ["BBC", "https://www.bbc.com/"],
+            ["Associated Press", "https://apnews.com/"],
+            ["Deutsche Welle", "https://www.dw.com/"],
+            ["France 24", "https://www.france24.com/"]
+        ],
+
+        sportsSources: [
+            ["FIFA", "https://www.fifa.com/"],
+            ["UEFA", "https://www.uefa.com/"],
+            ["Olympics", "https://olympics.com/"],
+            ["World Athletics", "https://worldathletics.org/"]
+        ]
+    }
+};
+
+let currentLang = localStorage.getItem("souad_lang") || "ar";
+let currentGovernorate = localStorage.getItem("souad_governorate") || "Tunis";
+</script>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="sticky top-0 z-50 border-b border-emerald-900/30 bg-emerald-950 text-white shadow-lg">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+        <div class="h-20 flex items-center justify-between gap-4">
+
+            <!-- Brand -->
+            <a href="#" class="flex items-center gap-3 shrink-0">
+
+                <div class="w-11 h-11 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg">
+                    <span class="text-2xl font-black text-white">س</span>
+                </div>
+
+                <div class="hidden sm:block">
+                    <div class="font-black text-xl tracking-tight">
+                        <span data-i18n="brand">سُعاد</span>
+                    </div>
+
+                    <div class="text-[11px] text-emerald-200">
+                        Souad.tn
+                    </div>
+                </div>
+
+            </a>
+
+
+            <!-- Desktop controls -->
+            <div class="flex items-center gap-2">
+
+                <!-- Governorate -->
+                <div class="hidden md:flex items-center gap-2 bg-emerald-900/70 border border-emerald-700/70 rounded-xl px-3 py-2">
+
+                    <span class="text-xs text-emerald-200" data-i18n="governorate">
+                        الولاية
+                    </span>
+
+                    <select
+                        id="governorateSelect"
+                        class="bg-transparent text-white text-sm font-bold focus:outline-none cursor-pointer"
+                    ></select>
+
+                </div>
+
+
+                <!-- Language -->
+                <div class="flex bg-emerald-900/70 border border-emerald-700/70 rounded-xl p-1">
+
+                    <button
+                        data-lang="ar"
+                        class="lang-btn px-2.5 py-1.5 rounded-lg text-xs font-bold"
+                    >
+                        AR
+                    </button>
+
+                    <button
+                        data-lang="fr"
+                        class="lang-btn px-2.5 py-1.5 rounded-lg text-xs font-bold"
+                    >
+                        FR
+                    </button>
+
+                    <button
+                        data-lang="en"
+                        class="lang-btn px-2.5 py-1.5 rounded-lg text-xs font-bold"
+                    >
+                        EN
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<main>
+
+<section class="relative overflow-hidden bg-emerald-950 text-white hero-grid">
+
+    <div class="absolute inset-0 bg-gradient-to-b from-emerald-950/10 to-emerald-950"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+
+        <div class="max-w-4xl mx-auto text-center fade-up">
+
+            <div class="inline-flex items-center gap-2 bg-emerald-900/70 border border-emerald-700/70 px-3 py-1.5 rounded-full text-xs text-emerald-100 mb-6">
+
+                <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
+
+                <span data-i18n="transparency">
+                    الشفافية أولًا
+                </span>
+
+            </div>
+
+
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight">
+
+                <span data-i18n="tagline">
+                    المعلومة التي تحتاجها، من مصدرها.
+                </span>
+
+            </h1>
+
+
+            <p
+                class="mt-5 text-emerald-100 text-base sm:text-lg leading-8 max-w-2xl mx-auto"
+                data-i18n="subtagline"
+            >
+                بوابة مستقلة لتنظيم الوصول إلى المعلومات والخدمات والبيانات العمومية في تونس.
+            </p>
+
+
+            <!-- Search -->
+            <div class="mt-9 max-w-3xl mx-auto">
+
+                <div class="bg-white rounded-2xl p-2 shadow-2xl flex gap-2">
+
+                    <input
+                        id="searchInput"
+                        type="search"
+                        autocomplete="off"
+                        class="flex-1 min-w-0 text-slate-900 px-4 py-3 rounded-xl focus:outline-none text-sm sm:text-base"
+                        data-placeholder="searchPlaceholder"
+                        placeholder="ماذا تبحث عنه؟"
+                    >
+
+                    <button
+                        id="searchButton"
+                        class="bg-emerald-700 hover:bg-emerald-800 text-white px-5 sm:px-7 py-3 rounded-xl font-bold transition"
+                        data-i18n="searchButton"
+                    >
+                        بحث
+                    </button>
+
+                </div>
+
+                <div
+                    id="searchResults"
+                    class="hidden mt-3 bg-white text-slate-800 rounded-2xl shadow-2xl text-right overflow-hidden"
+                ></div>
+
+            </div>
+
+
+            <!-- Quick links -->
+            <div class="mt-7 flex flex-wrap justify-center gap-2 text-xs">
+
+                <button
+                    data-scroll="emergencySection"
+                    class="quick-link bg-white/10 hover:bg-white/15 border border-white/10 px-3 py-2 rounded-full transition"
+                >
+                    🚨 <span data-i18n="emergencyTitle">الطوارئ</span>
+                </button>
+
+                <button
+                    data-scroll="servicesSection"
+                    class="quick-link bg-white/10 hover:bg-white/15 border border-white/10 px-3 py-2 rounded-full transition"
+                >
+                    🧭 <span data-i18n="quickAccess">وصول سريع</span>
+                </button>
+
+                <button
+                    data-scroll="sourcesSection"
+                    class="quick-link bg-white/10 hover:bg-white/15 border border-white/10 px-3 py-2 rounded-full transition"
+                >
+                    🔎 <span data-i18n="source">المصادر</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRUST STRIP
+========================================================= -->
+
+<section class="bg-white border-b border-slate-200">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+
+            <div class="flex items-center justify-center gap-2 text-sm">
+                <span class="text-emerald-600">✓</span>
+                <span data-i18n="verified">موثق</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 text-sm">
+                <span class="text-emerald-600">✓</span>
+                <span data-i18n="official">مصدر رسمي</span>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 text-sm">
+                <span class="text-slate-500">◷</span>
+                <span data-i18n="lastChecked">آخر تحقق</span>:
+                <span id="lastChecked"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+
+    <!-- Governorate -->
+    <section class="md:hidden mb-8">
+
+        <label
+            class="block text-xs font-bold text-slate-500 mb-2"
+            data-i18n="governorate"
+        >
+            الولاية
+        </label>
+
+        <select
+            id="mobileGovernorateSelect"
+            class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        ></select>
+
+    </section>
+
+
+    <!-- Emergency -->
+    <section id="emergencySection" class="mb-12">
+
+        <div class="flex items-end justify-between gap-4 mb-5">
+
+            <div>
+                <div class="text-xs font-bold text-red-600 mb-1">
+                    24/7
+                </div>
+
+                <h2
+                    class="text-2xl font-black text-slate-900"
+                    data-i18n="emergencyTitle"
+                >
+                    أرقام النجدة
+                </h2>
+
+                <p
+                    class="text-sm text-slate-500 mt-1"
+                    data-i18n="emergencySubtitle"
+                >
+                    مصادر وزارة الداخلية
+                </p>
+            </div>
+
+            <div class="hidden sm:block text-xs text-slate-400">
+                مصدر أولي
+            </div>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+            <script>
+                document.write(
+                    SOUAD.emergency.map(item => `
+                        <a
+                            href="tel:${item.number}"
+                            class="bg-white border border-slate-200 rounded-2xl p-5 shadow-card hover:shadow-soft hover:border-red-200 transition group"
+                        >
+                            <div class="flex items-center justify-between gap-3">
+
+                                <div>
+                                    <div class="text-3xl font-black text-red-600 ltr">
+                                        ${item.number}
+                                    </div>
+
+                                    <div class="text-sm font-bold text-slate-800 mt-2"
+                                         data-emergency-ar="${item.ar}"
+                                         data-emergency-fr="${item.fr}"
+                                         data-emergency-en="${item.en}">
+                                        ${item.ar}
+                                    </div>
+                                </div>
+
+                                <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-2xl group-hover:bg-red-100 transition">
+                                    📞
+                                </div>
+
+                            </div>
+
+                            <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-red-600 font-bold">
+                                <span data-i18n="call">اتصال</span>
+                            </div>
+
+                        </a>
+                    `).join("")
+                );
+            </script>
+
+        </div>
+
+        <div class="mt-4 text-xs text-slate-500 leading-6">
+            <span>المصدر:</span>
+            <a
+                href="https://services.interieur.gov.tn/wap/ar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-emerald-700 font-bold hover:underline"
+            >
+                وزارة الداخلية التونسية
+            </a>
+        </div>
+
+    </section>
+
+
+    <!-- Services -->
+    <section id="servicesSection" class="mb-12">
+
+        <div class="mb-6">
+
+            <div class="text-xs font-bold text-emerald-700 mb-1">
+                SOUAD / 01
+            </div>
+
+            <h2
+                class="text-2xl sm:text-3xl font-black text-slate-900"
+                data-i18n="servicesTitle"
+            >
+                مركز المعلومات والخدمات
+            </h2>
+
+            <p
+                class="text-sm text-slate-500 mt-2"
+                data-i18n="servicesSubtitle"
+            >
+                خدمات نبدأ بها فقط عندما نستطيع توثيق مصدرها بوضوح.
+            </p>
+
+        </div>
+
+
+        <div
+            id="servicesGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+        ></div>
+
+    </section>
+
+
+    <!-- Sources -->
+    <section id="sourcesSection" class="mb-12">
+
+        <div class="mb-6">
+
+            <div class="text-xs font-bold text-emerald-700 mb-1">
+                SOUAD / 02
+            </div>
+
+            <h2
+                class="text-2xl font-black text-slate-900"
+                data-i18n="source"
+            >
+                المصادر
+            </h2>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <!-- Open Data -->
+            <a
+                href="https://www.data.gov.tn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-card transition"
+            >
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div>
+                        <div class="text-2xl mb-3">📊</div>
+
+                        <h3 class="font-black text-lg">
+                            <span data-source="openData"></span>
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-2 leading-6">
+                            2900+ مجموعة بيانات عمومية منشورة على البوابة الوطنية، مع أدوات بحث وطلبات لفتح البيانات.
+                        </p>
+                    </div>
+
+                    <span class="text-emerald-600">↗</span>
+
+                </div>
+
+            </a>
+
+
+            <!-- INM -->
+            <a
+                href="https://www.meteo.tn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-card transition"
+            >
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div>
+                        <div class="text-2xl mb-3">🌦️</div>
+
+                        <h3 class="font-black text-lg">
+                            <span data-source="meteo"></span>
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-2 leading-6">
+                            الرصدات الجوية، اليقظة، النشرات الخاصة، الزلازل والمعلومات المناخية.
+                        </p>
+                    </div>
+
+                    <span class="text-emerald-600">↗</span>
+
+                </div>
+
+            </a>
+
+
+            <!-- SNCFT -->
+            <a
+                href="https://www.sncft.com.tn/ar/القطار-في-الوقت-الحقيقي/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-card transition"
+            >
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div>
+                        <div class="text-2xl mb-3">🚆</div>
+
+                        <h3 class="font-black text-lg">
+                            <span data-source="sncftLive"></span>
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-2 leading-6">
+                            متابعة حالة القطارات مباشرة من موقع الشركة الوطنية للسكك الحديدية التونسية.
+                        </p>
+                    </div>
+
+                    <span class="text-emerald-600">↗</span>
+
+                </div>
+
+            </a>
+
+
+            <!-- Interior -->
+            <a
+                href="https://services.interieur.gov.tn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-card transition"
+            >
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div>
+                        <div class="text-2xl mb-3">🏛️</div>
+
+                        <h3 class="font-black text-lg">
+                            <span data-source="interiorServices"></span>
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-2 leading-6">
+                            بوابة خدمات وزارة الداخلية والمعلومات الإدارية والأمنية المنشورة رسميًا.
+                        </p>
+                    </div>
+
+                    <span class="text-emerald-600">↗</span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- News & Sports -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-12">
+
+
+        <!-- News -->
+        <article class="bg-white border border-slate-200 rounded-3xl p-6 shadow-card">
+
+            <div class="flex items-start justify-between gap-4 mb-5">
+
+                <div>
+                    <div class="text-xs font-bold text-emerald-700 mb-1">
+                        SOUAD / NEWS
+                    </div>
+
+                    <h2
+                        class="text-2xl font-black"
+                        data-i18n="newsTitle"
+                    >
+                        الأخبار
+                    </h2>
+
+                    <p
+                        class="text-sm text-slate-500 mt-2"
+                        data-i18n="newsText"
+                    >
+                        سُعاد لا تختلق الأخبار. نوصلك إلى المصدر.
+                    </p>
+                </div>
+
+                <span class="text-3xl">📰</span>
+
+            </div>
+
+
+            <div id="newsSources" class="space-y-2"></div>
+
+
+            <div class="mt-5 bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 leading-6">
+
+                <strong>منهجية:</strong>
+
+                لا تعرض هذه النسخة أخبارًا منسوخة أو عناوين مولدة آليًا.
+                يتم الانتقال إلى المصدر الأصلي مباشرة.
+            </div>
+
+        </article>
+
+
+        <!-- Sports -->
+        <article class="bg-white border border-slate-200 rounded-3xl p-6 shadow-card">
+
+            <div class="flex items-start justify-between gap-4 mb-5">
+
+                <div>
+                    <div class="text-xs font-bold text-emerald-700 mb-1">
+                        SOUAD / SPORT
+                    </div>
+
+                    <h2
+                        class="text-2xl font-black"
+                        data-i18n="sportsTitle"
+                    >
+                        الرياضة
+                    </h2>
+
+                    <p
+                        class="text-sm text-slate-500 mt-2"
+                        data-i18n="sportsText"
+                    >
+                        معلومات رياضية من مصادر متخصصة، مع إظهار المصدر.
+                    </p>
+                </div>
+
+                <span class="text-3xl">🏆</span>
+
+            </div>
+
+
+            <div id="sportsSources" class="space-y-2"></div>
+
+
+            <div class="mt-5 bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-600 leading-6">
+                في النسخة الأولى لا نعرض نتائج مباشرة ما لم يتوفر مصدر حي ومستقر يمكن التحقق منه.
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- Methodology -->
+    <section class="mb-12">
+
+        <div class="bg-emerald-950 text-white rounded-3xl p-7 sm:p-9 overflow-hidden relative">
+
+            <div class="absolute -top-20 -left-20 w-64 h-64 bg-emerald-500/10 rounded-full"></div>
+
+            <div class="relative">
+
+                <div class="text-xs font-bold text-emerald-300 mb-2">
+                    SOUAD / PRINCIPLES
+                </div>
+
+                <h2
+                    class="text-2xl sm:text-3xl font-black"
+                    data-i18n="methodology"
+                >
+                    منهجية سُعاد
+                </h2>
+
+                <p
+                    class="text-emerald-100 mt-3 max-w-3xl leading-8 text-sm"
+                    data-i18n="methodologyText"
+                >
+                    لا نعرض معلومة متغيرة دون مصدر. عند غياب التحقق، نصرّح بذلك بدل التخمين.
+                </p>
+
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-7">
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="text-emerald-300 font-black text-xl">01</div>
+                        <div class="font-bold mt-2">المصدر الأصلي</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">Original source first</div>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="text-emerald-300 font-black text-xl">02</div>
+                        <div class="font-bold mt-2">التحقق</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">Verify before display</div>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="text-emerald-300 font-black text-xl">03</div>
+                        <div class="font-bold mt-2">الشفافية</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">Show limitations</div>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="text-emerald-300 font-black text-xl">04</div>
+                        <div class="font-bold mt-2">لا اختلاق</div>
+                        <div class="text-xs text-emerald-100/70 mt-1">No fabricated data</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Advertisement slot -->
+    <section class="mb-12">
+
+        <div class="min-h-[100px] bg-white border border-dashed border-slate-300 rounded-2xl flex items-center justify-center">
+
+            <span
+                class="text-[11px] text-slate-400"
+                data-i18n="adLabel"
+            >
+                مساحة إعلانية
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- Transparency -->
+    <section class="mb-12">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-6">
+
+                <h3
+                    class="font-black text-lg"
+                    data-i18n="transparency"
+                >
+                    الشفافية
+                </h3>
+
+                <p
+                    class="text-sm text-slate-500 leading-7 mt-3"
+                    data-i18n="transparencyText"
+                >
+                    سُعاد مبادرة مستقلة وغير حكومية.
+                </p>
+
+            </div>
+
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-6">
+
+                <h3
+                    class="font-black text-lg"
+                    data-i18n="limitations"
+                >
+                    حدود النسخة الحالية
+                </h3>
+
+                <p
+                    class="text-sm text-slate-500 leading-7 mt-3"
+                    data-i18n="limitationsText"
+                >
+                    بعض الخدمات مؤجلة إلى أن يتوفر مصدر مستقر وقابل للتحقق آليًا.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="bg-slate-950 text-slate-400">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div>
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-10 h-10 rounded-xl bg-emerald-700 flex items-center justify-center text-white font-black">
+                        س
+                    </div>
+
+                    <div>
+                        <div
+                            class="font-black text-white"
+                            data-i18n="footer"
+                        >
+                            بوابة سُعاد للبيانات المفتوحة
+                        </div>
+
+                        <div class="text-xs mt-1">
+                            Souad.tn
+                        </div>
+                    </div>
+
+                </div>
+
+                <p
+                    class="text-xs leading-6 mt-4"
+                    data-i18n="footerText"
+                >
+                    مشروع رقمي مستقل لتسهيل الوصول إلى المعلومات العمومية في تونس.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="font-bold text-white text-sm mb-3">
+                    المصادر الأساسية
+                </h3>
+
+                <div class="space-y-2 text-xs">
+
+                    <a
+                        href="https://www.data.gov.tn/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="block hover:text-emerald-300"
+                    >
+                        البيانات المفتوحة
+                    </a>
+
+                    <a
+                        href="https://www.interieur.gov.tn/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="block hover:text-emerald-300"
+                    >
+                        وزارة الداخلية
+                    </a>
+
+                    <a
+                        href="https://www.sncft.com.tn/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="block hover:text-emerald-300"
+                    >
+                        SNCFT
+                    </a>
+
+                    <a
+                        href="https://www.meteo.tn/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="block hover:text-emerald-300"
+                    >
+                        المعهد الوطني للرصد الجوي
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="font-bold text-white text-sm mb-3">
+                    Souad.tn
+                </h3>
+
+                <div class="space-y-2 text-xs">
+
+                    <a href="#" class="block hover:text-emerald-300">
+                        المنهجية
+                    </a>
+
+                    <a href="#" class="block hover:text-emerald-300">
+                        الخصوصية
+                    </a>
+
+                    <a href="#" class="block hover:text-emerald-300">
+                        الشفافية
+                    </a>
+
+                    <a href="#" class="block hover:text-emerald-300">
+                        التواصل
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="border-t border-slate-800 mt-8 pt-5 text-center text-[11px]">
+
+            © 2026 Souad.tn — Independent civic information project.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* ---------------------------------------------------------
+   Utilities
+--------------------------------------------------------- */
+
+function escapeHTML(value) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+/* ---------------------------------------------------------
+   Language
+--------------------------------------------------------- */
+
+function setLanguage(lang) {
+
+    if (!TRANSLATIONS[lang]) {
+        lang = "ar";
+    }
+
+    currentLang = lang;
+
+    localStorage.setItem("souad_lang", lang);
+
+    const html = document.documentElement;
+
+    html.lang = lang;
+    html.dir = lang === "ar" ? "rtl" : "ltr";
+
+    const t = TRANSLATIONS[lang];
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+
+        const key = element.dataset.i18n;
+
+        if (t[key] !== undefined) {
+            element.textContent = t[key];
+        }
+
+    });
+
+
+    document.querySelectorAll("[data-placeholder]").forEach(element => {
+
+        const key = element.dataset.placeholder;
+
+        if (t[key] !== undefined) {
+            element.placeholder = t[key];
+        }
+
+    });
+
+
+    document.querySelectorAll("[data-emergency-ar]").forEach(element => {
+
+        const key =
+            lang === "ar"
+                ? "data-emergency-ar"
+                : lang === "fr"
+                    ? "data-emergency-fr"
+                    : "data-emergency-en";
+
+        element.textContent = element.getAttribute(key);
+
+    });
+
+
+    document.querySelectorAll(".lang-btn").forEach(button => {
+
+        const active = button.dataset.lang === lang;
+
+        button.classList.toggle("bg-emerald-500", active);
+        button.classList.toggle("text-white", active);
+        button.classList.toggle("text-emerald-200", !active);
+
+    });
+
+
+    renderGovernorates();
+    renderServices();
+    renderSourceLists();
+
+    document.getElementById("searchResults").classList.add("hidden");
+    document.getElementById("searchInput").value = "";
+}
+
+
+/* ---------------------------------------------------------
+   Governorates
+--------------------------------------------------------- */
+
+function renderGovernorates() {
+
+    const selects = [
+        document.getElementById("governorateSelect"),
+        document.getElementById("mobileGovernorateSelect")
+    ];
+
+    selects.forEach(select => {
+
+        if (!select) return;
+
+        select.innerHTML = "";
+
+        SOUAD.governorates.forEach(gov => {
+
+            const option = document.createElement("option");
+
+            option.value = gov[0];
+
+            const label =
+                currentLang === "ar"
+                    ? gov[1]
+                    : currentLang === "fr"
+                        ? gov[2]
+                        : gov[3];
+
+            option.textContent = label;
+
+            if (gov[0] === currentGovernorate) {
+                option.selected = true;
+            }
+
+            select.appendChild(option);
+
+        });
+
+    });
+}
+
+
+function setGovernorate(value) {
+
+    const valid = SOUAD.governorates.some(item => item[0] === value);
+
+    if (!valid) return;
+
+    currentGovernorate = value;
+
+    localStorage.setItem("souad_governorate", value);
+
+    document.getElementById("governorateSelect").value = value;
+    document.getElementById("mobileGovernorateSelect").value = value;
+}
+
+
+/* ---------------------------------------------------------
+   Services
+--------------------------------------------------------- */
+
+function getLocalizedService(service) {
+
+    return {
+        title: service.title[currentLang],
+        description: service.description[currentLang]
+    };
+
+}
+
+
+function renderServices() {
+
+    const container = document.getElementById("servicesGrid");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    SOUAD.services.forEach(service => {
+
+        const localized = getLocalizedService(service);
+
+        let action = "";
+        let badge = "";
+
+        if (service.type === "source") {
+
+            const source = SOUAD.sources[service.source];
+
+            action = `
+                <a
+                    href="${source.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-emerald-700 hover:text-emerald-900"
+                >
+                    <span>${TRANSLATIONS[currentLang].external}</span>
+                    <span class="arrow">→</span>
+                </a>
+            `;
+
+            badge = `
+                <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full px-2 py-1 text-[10px] font-bold">
+                    ✓ ${TRANSLATIONS[currentLang].official}
+                </span>
+            `;
+
+        }
+
+        else if (service.type === "emergency") {
+
+            action = `
+                <button
+                    onclick="document.getElementById('emergencySection').scrollIntoView({behavior:'smooth'})"
+                    class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-red-600"
+                >
+                    ${TRANSLATIONS[currentLang].emergencyTitle}
+                    <span class="arrow">→</span>
+                </button>
+            `;
+
+            badge = `
+                <span class="inline-flex items-center gap-1 bg-red-50 text-red-700 border border-red-100 rounded-full px-2 py-1 text-[10px] font-bold">
+                    24/7
+                </span>
+            `;
+
+        }
+
+        else if (service.type === "news") {
+
+            action = `
+                <button
+                    onclick="document.getElementById('newsSources').scrollIntoView({behavior:'smooth'})"
+                    class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-emerald-700"
+                >
+                    ${TRANSLATIONS[currentLang].newsTitle}
+                    <span class="arrow">→</span>
+                </button>
+            `;
+
+            badge = `
+                <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-600 border border-slate-200 rounded-full px-2 py-1 text-[10px] font-bold">
+                    ${TRANSLATIONS[currentLang].source}
+                </span>
+            `;
+
+        }
+
+        else if (service.type === "sports") {
+
+            action = `
+                <button
+                    onclick="document.getElementById('sportsSources').scrollIntoView({behavior:'smooth'})"
+                    class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-emerald-700"
+                >
+                    ${TRANSLATIONS[currentLang].sportsTitle}
+                    <span class="arrow">→</span>
+                </button>
+            `;
+
+            badge = `
+                <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-600 border border-slate-200 rounded-full px-2 py-1 text-[10px] font-bold">
+                    ${TRANSLATIONS[currentLang].source}
+                </span>
+            `;
+
+        }
+
+        else {
+
+            action = `
+                <span class="mt-5 inline-flex text-sm font-bold text-slate-400">
+                    ${TRANSLATIONS[currentLang].future}
+                </span>
+            `;
+
+            badge = `
+                <span class="inline-flex items-center bg-slate-100 text-slate-500 border border-slate-200 rounded-full px-2 py-1 text-[10px] font-bold">
+                    ${TRANSLATIONS[currentLang].future}
+                </span>
+            `;
+
+        }
+
+
+        const card = document.createElement("article");
+
+        card.className =
+            "service-card bg-white border border-slate-200 rounded-3xl p-5 shadow-card hover:border-emerald-300";
+
+        card.dataset.search =
+            `${localized.title} ${localized.description}`.toLowerCase();
+
+
+        card.innerHTML = `
+
+            <div class="flex items-start justify-between gap-3">
+
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-2xl">
+                    ${service.icon}
+                </div>
+
+                ${badge}
+
+            </div>
+
+            <h3 class="font-black text-lg text-slate-900 mt-5">
+                ${escapeHTML(localized.title)}
+            </h3>
+
+            <p class="text-sm text-slate-500 leading-6 mt-2">
+                ${escapeHTML(localized.description)}
+            </p>
+
+            ${action}
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* ---------------------------------------------------------
+   Source lists
+--------------------------------------------------------- */
+
+function renderSourceLists() {
+
+    const t = TRANSLATIONS[currentLang];
+
+    const news = document.getElementById("newsSources");
+    const sports = document.getElementById("sportsSources");
+
+    news.innerHTML = t.newsSources.map(([name, url]) => `
+
+        <a
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between gap-3 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl px-4 py-3 transition"
+        >
+
+            <span class="font-bold text-sm">
+                ${escapeHTML(name)}
+            </span>
+
+            <span class="text-emerald-600 text-sm">
+                ↗
+            </span>
+
+        </a>
+
+    `).join("");
+
+
+    sports.innerHTML = t.sportsSources.map(([name, url]) => `
+
+        <a
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between gap-3 bg-slate-50 hover:bg-emerald-50 border border-slate-200 rounded-xl px-4 py-3 transition"
+        >
+
+            <span class="font-bold text-sm">
+                ${escapeHTML(name)}
+            </span>
+
+            <span class="text-emerald-600 text-sm">
+                ↗
+            </span>
+
+        </a>
+
+    `).join("");
+
+}
+
+
+/* ---------------------------------------------------------
+   Source labels
+--------------------------------------------------------- */
+
+function renderSourceNames() {
+
+    document.querySelectorAll("[data-source]").forEach(element => {
+
+        const sourceKey = element.dataset.source;
+
+        const source = SOUAD.sources[sourceKey];
+
+        if (!source) return;
+
+        element.textContent = source.name[currentLang];
+
+    });
+
+}
+
+
+/* ---------------------------------------------------------
+   Search
+--------------------------------------------------------- */
+
+function performSearch() {
+
+    const query =
+        document.getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const results = document.getElementById("searchResults");
+
+    const t = TRANSLATIONS[currentLang];
+
+    if (!query) {
+
+        results.classList.add("hidden");
+        results.innerHTML = "";
+
+        return;
+    }
+
+
+    const matches = SOUAD.services.filter(service => {
+
+        const localized = getLocalizedService(service);
+
+        const text =
+            `${localized.title} ${localized.description}`.toLowerCase();
+
+        return text.includes(query);
+
+    });
+
+
+    if (!matches.length) {
+
+        results.innerHTML = `
+            <div class="p-5">
+                <div class="font-bold">${t.noResults}</div>
+                <div class="text-xs text-slate-500 mt-1">${t.tryAgain}</div>
+            </div>
+        `;
+
+        results.classList.remove("hidden");
+
+        return;
+    }
+
+
+    results.innerHTML = matches.map(service => {
+
+        const localized = getLocalizedService(service);
+
+        return `
+            <button
+                class="w-full text-right hover:bg-slate-50 p-4 border-b last:border-b-0 border-slate-100"
+                onclick="focusService('${service.id}')"
+            >
+
+                <div class="flex items-center gap-3">
+
+                    <span class="text-xl">
+                        ${service.icon}
+                    </span>
+
+                    <div>
+                        <div class="font-bold text-sm">
+                            ${escapeHTML(localized.title)}
+                        </div>
+
+                        <div class="text-xs text-slate-500 mt-1">
+                            ${escapeHTML(localized.description)}
+                        </div>
+                    </div>
+
+                </div>
+
+            </button>
+        `;
+
+    }).join("");
+
+    results.classList.remove("hidden");
+
+}
+
+
+function focusService(id) {
+
+    const card =
+        [...document.querySelectorAll("#servicesGrid article")]
+            .find(element => {
+                const service = SOUAD.services.find(
+                    s => s.id === id
+                );
+
+                if (!service) return false;
+
+                return element.dataset.search
+                    .includes(service.title[currentLang].toLowerCase());
+            });
+
+
+    if (card) {
+
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        card.classList.add("ring-2", "ring-emerald-500");
+
+        setTimeout(() => {
+
+            card.classList.remove("ring-2", "ring-emerald-500");
+
+        }, 1800);
+
+    }
+
+    document.getElementById("searchResults").classList.add("hidden");
+
+}
+
+
+/* ---------------------------------------------------------
+   Clock / verification time
+--------------------------------------------------------- */
+
+function updateTime() {
+
+    const now = new Date();
+
+    const locale =
+        currentLang === "ar"
+            ? "ar-TN"
+            : currentLang === "fr"
+                ? "fr-TN"
+                : "en-TN";
+
+    const formatter = new Intl.DateTimeFormat(
+        locale,
+        {
+            dateStyle: "medium",
+            timeStyle: "short",
+            timeZone: "Africa/Tunis"
+        }
+    );
+
+    document.getElementById("lastChecked").textContent =
+        formatter.format(now);
+
+}
+
+
+/* ---------------------------------------------------------
+   Events
+--------------------------------------------------------- */
+
+document.querySelectorAll(".lang-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        setLanguage(button.dataset.lang);
+
+    });
+
+});
+
+
+document.getElementById("governorateSelect")
+    .addEventListener("change", event => {
+
+        setGovernorate(event.target.value);
+
+    });
+
+
+document.getElementById("mobileGovernorateSelect")
+    .addEventListener("change", event => {
+
+        setGovernorate(event.target.value);
+
+    });
+
+
+document.getElementById("searchButton")
+    .addEventListener("click", performSearch);
+
+
+document.getElementById("searchInput")
+    .addEventListener("keydown", event => {
+
+        if (event.key === "Enter") {
+            performSearch();
+        }
+
+    });
+
+
+document.getElementById("searchInput")
+    .addEventListener("input", event => {
+
+        if (!event.target.value.trim()) {
+
+            document
+                .getElementById("searchResults")
+                .classList.add("hidden");
+
+        }
+
+    });
+
+
+document.querySelectorAll("[data-scroll]").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const id = button.dataset.scroll;
+
+        document
+            .getElementById(id)
+            ?.scrollIntoView({
+                behavior: "smooth"
+            });
+
+    });
+
+});
+
+
+/* ---------------------------------------------------------
+   Init
+--------------------------------------------------------- */
+
+function init() {
+
+    renderGovernorates();
+    renderServices();
+    renderSourceLists();
+    renderSourceNames();
+
+    setLanguage(currentLang);
+    setGovernorate(currentGovernorate);
+    updateTime();
+
+}
+
+init();
+
+setInterval(updateTime, 30000);
+
+</script>
+
 </body>
 </html>
